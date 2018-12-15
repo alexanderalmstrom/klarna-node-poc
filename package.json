@@ -5,13 +5,16 @@
   "author": "Alexander Almström <info@alexanderalmstrom.com>",
   "license": "MIT",
   "scripts": {
-    "server": "node server.js"
+    "build": "netlify-lambda build express",
+    "start": "node server-local.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "netlify-lambda": "^1.1.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "serverless-http": "^1.8.0"
   }
 }
