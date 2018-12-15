@@ -1,0 +1,17 @@
+{
+  "name": "contentful-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alexander Almström <info@alexanderalmstrom.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
+}
