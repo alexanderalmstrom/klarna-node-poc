@@ -15,9 +15,9 @@ const credentials = {
 }
 
 const config = {
-  purchase_country: "se",
-  purchase_currency: "sek",
-  locale: "sv-se"
+  purchase_country: "SE",
+  purchase_currency: "SEK",
+  locale: "sv-SE"
 }
 
 router.all('*', cors())
