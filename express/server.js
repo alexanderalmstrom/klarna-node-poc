@@ -19,9 +19,7 @@ const config = {
   locale: "sv-se"
 }
 
-app.use(bodyParser.json())
-
-app.post('/orders', function (req, res) {
+router.post('/orders', function (req, res) {
   const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
 
@@ -42,6 +40,7 @@ app.post('/orders', function (req, res) {
   })
 })
 
+app.use(bodyParser.json())
 app.use('/.netlify/functions/server', router)
 
 module.exports = app
