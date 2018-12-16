@@ -4,6 +4,7 @@ const express = require('express')
 const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const requestPromise = require('request-promise')
+const cors = require('cors')
 
 const app = express()
 const router = express.Router()
@@ -45,14 +46,7 @@ router.post('/orders', function (req, res) {
 })
 
 app.use(bodyParser.json())
-
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  next()
-})
-
+app.use(cors())
 app.use('/.netlify/functions/server', router)
 
 module.exports = app
