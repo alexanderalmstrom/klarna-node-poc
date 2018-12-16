@@ -41,7 +41,10 @@ router.post('/orders', function (req, res) {
     json: true
   }).then(response => {
     console.log(response)
-    res.send({ html_snippet: response.html_snippet })
+    res.send({
+      html_snippet: response.html_snippet,
+      order_id: response.order_id
+    })
   }).catch(error => {
     console.log(error)
   })
@@ -61,7 +64,10 @@ router.get('/orders/:id', function (req, res) {
     json: true
   }).then(response => {
     console.log(response)
-    res.send({ html_snippet: response.html_snippet })
+    res.send({
+      html_snippet: response.html_snippet,
+      order_id: response.order_id
+    })
   }).catch(error => {
     console.log(error)
   })
