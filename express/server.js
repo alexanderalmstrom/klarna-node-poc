@@ -48,12 +48,9 @@ router.post('/orders', function (req, res, next) {
   }).catch(error => {
     console.log(error)
   })
-
-  next()
 })
 
 router.get('/orders/:id', function (req, res, next) {
-  const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
 
   requestPromise({
@@ -72,8 +69,6 @@ router.get('/orders/:id', function (req, res, next) {
   }).catch(error => {
     console.log(error)
   })
-
-  next()
 })
 
 app.use(bodyParser.json())
