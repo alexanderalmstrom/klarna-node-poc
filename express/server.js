@@ -14,12 +14,6 @@ const credentials = {
   password: process.env.KLARNA_PASSWORD
 }
 
-const config = {
-  purchase_country: "SE",
-  purchase_currency: "SEK",
-  locale: "sv-SE"
-}
-
 router.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With")
@@ -32,13 +26,12 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/orders', function (req, res, next) {
-  const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
 
   requestPromise({
     method: 'POST',
     uri: 'https://api.playground.klarna.com/checkout/v3/orders',
-    body: data,
+    body: req.body,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
