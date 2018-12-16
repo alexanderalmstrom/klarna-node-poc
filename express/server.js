@@ -19,6 +19,13 @@ const config = {
   locale: "sv-se"
 }
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  next()
+})
+
 router.post('/orders', function (req, res) {
   const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
