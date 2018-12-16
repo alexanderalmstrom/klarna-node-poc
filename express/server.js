@@ -20,6 +20,8 @@ const config = {
   locale: "sv-se"
 }
 
+router.all('*', cors())
+
 router.get('/', function (req, res, next) {
   next()
 })
@@ -46,7 +48,6 @@ router.post('/orders', function (req, res) {
 })
 
 app.use(bodyParser.json())
-app.use(cors())
 app.use('/.netlify/functions/server', router)
 
 module.exports = app
