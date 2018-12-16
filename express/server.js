@@ -19,10 +19,7 @@ const config = {
   locale: "sv-se"
 }
 
-router.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+router.get('/', function (req, res, next) {
   next()
 })
 
@@ -48,6 +45,14 @@ router.post('/orders', function (req, res) {
 })
 
 app.use(bodyParser.json())
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  next()
+})
+
 app.use('/.netlify/functions/server', router)
 
 module.exports = app
