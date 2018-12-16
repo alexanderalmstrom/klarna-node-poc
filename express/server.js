@@ -20,7 +20,12 @@ const config = {
   locale: "sv-SE"
 }
 
-router.all('*', cors())
+router.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With")
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+  next()
+})
 
 router.get('/', function (req, res, next) {
   next()
@@ -72,6 +77,7 @@ router.get('/orders/:id', function (req, res, next) {
 })
 
 app.use(bodyParser.json())
+app.use('/api', router)
 app.use('/.netlify/functions/server', router)
 
 module.exports = app
