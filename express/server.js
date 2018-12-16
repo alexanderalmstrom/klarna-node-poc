@@ -20,7 +20,7 @@ const config = {
 }
 
 router.post('/orders', function (req, res) {
-  const data = Object.assign(config, req.body.data)
+  const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
 
   requestPromise({
@@ -28,7 +28,6 @@ router.post('/orders', function (req, res) {
     uri: 'https://api.playground.klarna.com/checkout/v3/orders',
     body: data,
     headers: {
-      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Authorization': token
     },
