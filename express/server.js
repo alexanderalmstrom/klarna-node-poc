@@ -50,7 +50,7 @@ router.post('/orders', function (req, res) {
   })
 })
 
-router.get('/orders/:id', function (req, res) {
+router.post('/orders/:id', function (req, res) {
   const data = Object.assign(config, req.body)
   const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
 
@@ -65,8 +65,7 @@ router.get('/orders/:id', function (req, res) {
   }).then(response => {
     console.log(response)
     res.send({
-      html_snippet: response.html_snippet,
-      order_id: response.order_id
+      html_snippet: response.html_snippet
     })
   }).catch(error => {
     console.log(error)
