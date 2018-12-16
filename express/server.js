@@ -8,6 +8,8 @@ const requestPromise = require('request-promise')
 const app = express()
 const router = express.Router()
 
+const KLARNA_API_URL = process.env.KLARNA_API_URL || 'https://api.playground.klarna.com'
+
 const credentials = {
   username: process.env.KLARNA_USERNAME,
   password: process.env.KLARNA_PASSWORD
@@ -29,13 +31,13 @@ router.post('/orders', function (req, res, next) {
 
   requestPromise({
     method: 'POST',
-    uri: 'https://api.playground.klarna.com/checkout/v3/orders',
+    uri: `${KLARNA_API_URL}/checkout/v3/orders`,
     body: req.body,
+    json: true,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
-    json: true
+    }
   }).then(response => {
     console.log(response)
     res.send({
@@ -52,12 +54,12 @@ router.get('/orders/:id', function (req, res, next) {
 
   requestPromise({
     method: 'GET',
-    uri: `https://api.playground.klarna.com/checkout/v3/orders/${req.params.id}`,
+    uri: `${KLARNA_API_URL}/checkout/v3/orders/${req.params.id}`,
+    json: true,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
-    json: true
+    }
   }).then(response => {
     console.log(response)
     res.send({
