@@ -8,11 +8,20 @@ const requestPromise = require('request-promise')
 const app = express()
 const router = express.Router()
 
-const KLARNA_API_URL = process.env.KLARNA_API_URL || 'https://api.playground.klarna.com'
+const KLARNA_URL = process.env.KLARNA_URL || 'https://api.playground.klarna.com'
 
 const credentials = {
   username: process.env.KLARNA_USERNAME,
   password: process.env.KLARNA_PASSWORD
+}
+
+function headers () {
+  const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
+
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': token
+  }
 }
 
 router.all('/*', function(req, res, next) {
@@ -27,17 +36,12 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/orders', function (req, res, next) {
-  const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
-
   requestPromise({
     method: 'POST',
-    uri: `${KLARNA_API_URL}/checkout/v3/orders`,
+    uri: `${KLARNA_URL}/checkout/v3/orders`,
     body: req.body,
     json: true,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token
-    }
+    headers: headers()
   }).then(response => {
     console.log(response)
     res.send({
@@ -50,16 +54,11 @@ router.post('/orders', function (req, res, next) {
 })
 
 router.get('/orders/:id', function (req, res, next) {
-  const token = `Basic ${Buffer.from(`${credentials.username}:${credentials.password}`).toString('base64')}`
-
   requestPromise({
     method: 'GET',
-    uri: `${KLARNA_API_URL}/checkout/v3/orders/${req.params.id}`,
+    uri: `${KLARNA_URL}/checkout/v3/orders/${req.params.id}`,
     json: true,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token
-    }
+    headers: headers()
   }).then(response => {
     console.log(response)
     res.send({
